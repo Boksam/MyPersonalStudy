@@ -1,7 +1,5 @@
 from sys import stdin, stdout
 
-N, M = 0, 0
-
 num_list = []
 bool_num_list = []
 
@@ -20,11 +18,6 @@ def solve(m):
             solve(m + 1)
             bool_num_list[num_list.pop() - 1] = False
             
-
-
-
-
-
 
 if __name__ == "__main__":
     N, M = map(int, stdin.readline().split())

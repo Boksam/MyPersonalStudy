@@ -7,10 +7,10 @@ circle_list = [i for i in range(1, N + 1)]
 idx = 0
 stdout.write("<")
 
-while(True):
+while True:
     if len(circle_list) == 1:
         break
-    idx += 2
+    idx += K - 1
     if idx >= len(circle_list):
         idx %= len(circle_list)
     
