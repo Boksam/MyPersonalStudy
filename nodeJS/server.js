@@ -6,7 +6,7 @@ app.listen(8080, function(){
 });
 
 app.get('/pet', function(req, res){
-    res.send('펫용품 쇼핑할 수 있는 페이지입니다.');
+    res.send('펫용품 쇼핑할 수 있는 페이지입니다 !!');
 });
 
 app.get('/beauty', function(req, res){
