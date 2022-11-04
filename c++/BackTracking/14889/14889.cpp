@@ -5,11 +5,11 @@ using namespace std;
 int stats[21][21];
 bool check[22];
 int N;
-int ans = 1000000000; // 10억
+int ans = 1000000000; 
 
-void DFS(int x, int pos) // x는 카운트 수, pos는 다음 값
+void DFS(int x, int pos) 
 {
-	if (x == N / 2) // 카운트수가 정원의 1/2이 됐을 때 능력치합 계산
+	if (x == N / 2) 
 	{
 		int start, link;
 		start = 0;
@@ -51,7 +51,7 @@ int main()
 		}
 	}
 
-	DFS(0, 1); // 카운트 0회부터 숫자는 1부터 시작
+	DFS(0, 1); 
 
 	cout << ans;
 }
