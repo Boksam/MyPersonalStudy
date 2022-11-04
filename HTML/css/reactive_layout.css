@@ -1,0 +1,25 @@
+.main-block {
+  width: 100%;
+  background-color:beige;
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
+}
+
+div{
+  width: 25%;
+  text-align:center;
+}
+
+
+@media screen and (max-width: 1200px){
+  div{
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 768px){
+  div{
+    width: 100%;
+  }
+}

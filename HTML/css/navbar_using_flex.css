@@ -1,0 +1,14 @@
+
+.navbar {
+  display: flex;
+  background-color:pink;
+  width: 100%;
+}
+
+.blank {
+  flex-grow: 3;
+}
+
+.service-tool {
+  margin-left: 20px;
+}

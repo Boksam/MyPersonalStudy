@@ -5,46 +5,69 @@ def filter_func(c):
         return True
     return False
 
+def solve(i):
+    end_str = ""
+    if brackets[i] == "(":
+        end_str = ")"
+    else:
+        end_str = "]"
+    
+    sum1 = 0
+    sum2 = 0
+    i += 1
+    while i < len(brackets):
+        if brackets[i] == end_str:
+            if sum1 == 0 and sum2 == 0:
+                return True, i
+            else:
+                return False, i
+        
+        if brackets[i] == "(":
+            sum1 += 1
+        elif brackets[i] == "[":
+            sum2 += 1
+        elif brackets[i] == ")":
+            sum1 -= 1
+        else:
+            sum2 -= 1
+        i += 1
+    
+    if sum1 != 0 or sum2 != 0:
+        return False, i
+    return True, i
+        
+        
+    
+
 while True:
     line = input()
     if line == ".":
         break
     brackets = list(filter(filter_func, line))
     
-    count_small = 0
-    count_large = 0
-    is_balance = True
-
-    for bracket in brackets:
-        if bracket == "(":
-            count_small += 1
-
-        elif bracket == "[":
-            count_large += 1
-
-        elif bracket == ")":
-            count_small -= 1
-            if count_large % 2 != 0:
-                is_balance = False
+    result = False
+    idx = 0
+    while idx < len(brackets):
+        if brackets[idx] == "(" or brackets[idx] == "[":
+            result, idx = solve(idx)
+            if result == False:
                 break
-        elif bracket == "]":
-            count_large -= 1
-            if count_small % 2 != 0:
-                is_balance = False
-                break
-        
-        if count_small < 0 or count_large < 0:
-            is_balance = False
+        else:
+            result = False
             break
-        
-    if count_small != 0 or count_large != 0:
-        is_balance = False
-   
-    if is_balance:
+        idx += 1
+    
+    if result == True:
         print("yes")
     else:
         print("no")
     
+        
+    
 
-# ( [ ( ) ])
-  1 2 1 1 0 0
+    # So when I die (the [first] I will see in (heaven) is a score list).
+    # [ first in ] ( first out ).
+    # Half Moon tonight (At least it is better than no Moon at all].
+    # A rope may form )( a trail in a maze.
+    # Help( I[m being held prisoner in a fortune cookie factory)].
+    # ([ (([( [ ] ) ( ) (( ))] )) ]).

@@ -1,0 +1,70 @@
+table {
+  border-collapse: collapse;
+  width:100%;
+}
+
+.background-block {
+  background-color:aliceblue;
+  width: 50%;
+  height: 500px;
+  margin:auto;
+  padding:50px;
+}
+
+.cart-title {
+  color:purple;
+  width: 100%;
+}
+
+img {
+  width: 70px;
+  height: 70px;
+}
+
+tr{
+  width: 500px;
+  border-bottom: 1px solid black;
+}
+.info {
+  text-align:center;
+}
+
+td {
+  text-align:right;
+  
+}
+
+.price {
+  color:grey;
+}
+
+
+
+.item-info {
+    margin-left: 5px;
+}
+
+.item-block {
+  text-align: left;
+}
+
+.item-pic {
+  float:left;
+}
+
+.item-detail {
+  margin-top: -10px;
+}
+
+.edit-link {
+  color:black;
+}
+
+.choose-payment {
+  width: 240px;
+  height: 60px;
+  background-color: bisque;
+  font-size: 20px;
+  border-radius: 5px;
+  float: right;
+}
