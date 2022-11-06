@@ -1,2 +1,7 @@
 nodeJS/node_modules
 
+*.inp
+
+*.out
+
+*.txt
