@@ -5,3 +5,7 @@ nodeJS/node_modules
 *.out
 
 *.txt
+
+React/blog/node_modules
+
+React/blog/public
