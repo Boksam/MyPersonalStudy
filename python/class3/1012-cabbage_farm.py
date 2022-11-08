@@ -1,20 +1,22 @@
 from sys import stdin, stdout
 
-farm = []
+farm= []
+visited = []
 count = 0
-def DFS():
+
+def DFS(start_point):
     global farm, count
-    
+    farm.pop()
+
     for block in farm:
-        
-    
-    
+        if block not in visited and abs(block[0] - start_point[0]) + abs(block[1] - start_point[1]) == 1:
+            DFS(block)
 
 
-
-N = int(stdin.readline())
-for _ in range(N):
+n = int(stdin.readline())
+for _ in range(n):
     farm = []
+    visited = []
     count = 0
 
     M, N, K = map(int, stdin.readline().split())
@@ -22,7 +24,8 @@ for _ in range(N):
     for __ in range(K):
         x, y = map(int, stdin.readline().split())
         farm.append((x, y))
-    
-    DFS()
+    while farm != visited:
+        DFS(farm[0])
+        count += 1
     
     stdout.write(str(count) + '\n')

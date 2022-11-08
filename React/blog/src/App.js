@@ -5,10 +5,13 @@ import { useState } from 'react';
 function App() {
 
   let [title, setTitle] = useState(['남자 코트 추천', '강남 우동맛집', '파이썬독학']);
-  let [like, setLike] = useState(0);
-  let[modal, setModal] = useState(false);
-  function clickFunc(){
-    setLike(like+1);
+  let [like, setLike] = useState([0, 0, 0]);
+  let [modal, setModal] = useState(false);
+  let [curTitle, setCurTitle] = useState(0);
+  const clickFunc = (i) => {
+    let copy = [...like];
+    copy[i]++;
+    setLike(copy);
   };
   
   function changeTitle(){
@@ -24,13 +27,11 @@ function App() {
   };
 
   function setModalTrue(){
-    if (modal == true){
-      setModal(false);
-    }
-    else{
+    if (modal == false) {
       setModal(true);
     }
   };
+
 
   return (
     <div className="App">
@@ -41,22 +42,19 @@ function App() {
       <button onClick={changeTitle}>누르면 첫 글 제목 바뀜</button>
       <button onClick={sortTitle}>누르면 가나다 순으로 정렬</button>
 
-      <div className="list">
-        <h4 onClick={setModalTrue}>{title[0]} <span onClick={ clickFunc }>👍🏻</span> {like} </h4>
-        <p>2월 17일 발행</p>
-      </div>
-      <div className="list">
-        <h4>{title[1]}</h4>
-        <p>2월 17일 발행</p>
-      </div>
-      <div className="list">
-        <h4>{title[2]}</h4>
-        <p>2월 17일 발행</p>
-      </div>
-      
+      {
+        title.map((t, i) => {
+          return (
+            <div className="list">
+            <h4 onClick={() => {setModalTrue(); setCurTitle(i)}}>{i} : {t} <span onClick = {() => {clickFunc(i)}}> 👍🏻 </span> {like[i]} </h4>
+            <p>2월 17일 발행</p>
+            </div>
+          )
+        })
+      }
 
       {
-        modal == true ? <Modal/> : null
+        modal == true ? <Modal curTitle={curTitle} changeTitle={changeTitle} title={title}/> : null
       }
       
     </div>
@@ -65,12 +63,13 @@ function App() {
 
 
 
-function Modal(){
+let Modal = (props) => {
   return (
     <div className="modal">
-      <h4>제목</h4>
+      <h4>{props.title[props.curTitle]}</h4>
       <p>날짜</p>
       <p>상세내용</p>
+      <button onClick={props.changeTitle}>첫번째 제목 바꾸기</button>
     </div>
   )
 }
