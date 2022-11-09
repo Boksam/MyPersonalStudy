@@ -8,6 +8,7 @@ function App() {
   let [like, setLike] = useState([0, 0, 0]);
   let [modal, setModal] = useState(false);
   let [curTitle, setCurTitle] = useState(0);
+  let [input_value, set_input_value] = useState('');
   const clickFunc = (i) => {
     let copy = [...like];
     copy[i]++;
@@ -32,6 +33,17 @@ function App() {
     }
   };
 
+  const addPost = () => {
+    let title_copy = [...title, input_value];
+    let like_copy = [...like, 0];
+    setTitle(title_copy);
+    setLike(like_copy);
+  };
+
+  const deletePost = (targetTitle) => {
+    setTitle(title.filter(title => title != targetTitle));
+  }
+
 
   return (
     <div className="App">
@@ -46,13 +58,19 @@ function App() {
         title.map((t, i) => {
           return (
             <div className="list">
-            <h4 onClick={() => {setModalTrue(); setCurTitle(i)}}>{i} : {t} <span onClick = {() => {clickFunc(i)}}> 👍🏻 </span> {like[i]} </h4>
-            <p>2월 17일 발행</p>
+              <h4 onClick={() => {setModalTrue(); setCurTitle(i)}}>{t} 
+              <span onClick = {(e) => {e.stopPropagation(); clickFunc(i)}}> 👍🏻 </span> {like[i]}
+              <button onClick={() => {deletePost(t)}}>삭제하기</button>
+              </h4>
+              <p>2월 17일 발행</p>
             </div>
           )
         })
       }
-
+      <div>
+      <input type="text" onChange={(e) => set_input_value(e.target.value)}/>
+      <button onClick={() => {addPost();}}/>
+      </div>
       {
         modal == true ? <Modal curTitle={curTitle} changeTitle={changeTitle} title={title}/> : null
       }
@@ -69,7 +87,7 @@ let Modal = (props) => {
       <h4>{props.title[props.curTitle]}</h4>
       <p>날짜</p>
       <p>상세내용</p>
-      <button onClick={props.changeTitle}>첫번째 제목 바꾸기</button>
+      <button onClick={() => {props.changeTitle()}}>첫번째 제목 바꾸기</button>
     </div>
   )
 }
