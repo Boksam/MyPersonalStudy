@@ -1,4 +1,5 @@
-from sys import stdin, stdout
+import sys
+sys.setrecursionlimit(10000)
 
 farm= []
 visited = []
@@ -6,26 +7,28 @@ count = 0
 
 def DFS(start_point):
     global farm, count
-    farm.pop()
+
+    current_point = start_point
+    farm.remove(start_point)
 
     for block in farm:
-        if block not in visited and abs(block[0] - start_point[0]) + abs(block[1] - start_point[1]) == 1:
+        if abs(block[0] - current_point[0]) + abs(block[1] - current_point[1]) == 1:
             DFS(block)
 
 
-n = int(stdin.readline())
+n = int(sys.stdin.readline())
 for _ in range(n):
     farm = []
     visited = []
     count = 0
 
-    M, N, K = map(int, stdin.readline().split())
+    M, N, K = map(int, sys.stdin.readline().split())
     
     for __ in range(K):
-        x, y = map(int, stdin.readline().split())
+        x, y = map(int, sys.stdin.readline().split())
         farm.append((x, y))
-    while farm != visited:
+    while farm:
         DFS(farm[0])
         count += 1
     
-    stdout.write(str(count) + '\n')
+    sys.stdout.write(str(count) + '\n')

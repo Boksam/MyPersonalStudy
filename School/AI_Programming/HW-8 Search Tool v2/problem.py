@@ -129,33 +129,33 @@ class Numeric(Problem):
         return self.mutate(current, i, d)
 
     def takeStep(self, x, v): # Take gradient and make update if legal
-        ###
-        ### Your code goes here!
-        ###        
-        # 1. get the gradient at point 'x'
-        # 2. get a new neighbor
-        # 3. check if the new neighbor is within the domain (isLegal?)
-        #   if yes, return the new neighbor
-        #   if no, return the current point x
+        grad = self.gradient(x, v)
+        xCopy = x[:]
+        for i in range(len(xCopy)):
+            xCopy[i] = xCopy[i] - self._alpha * grad[i]
+        if self.isLegal(xCopy):
+            return xCopy
+        else:
+            return x
 
     def gradient(self, x, v): # 'x' is a vector (list of valules)
-        ###
-        ### Your code goes here!
-        ###
         grad = []   # Calculate partial derivatives and combine them
         for i in range(len(x)):
-            # 1. make a copy of x
-            # 2. increase x_copy[i] by dx
-            # 3. compute the gradient "g" for x_copy = {new_eval - curr_eval} / dx
+            xCopyH = x[:]
+            xCopyH[i] += self._dx
+            g = (self.evaluate(xCopyH) - v) / self._dx
             grad.append(g)
         return grad
 
     def isLegal(self, x):   # Check if 'x' is within the domain
-        ###
-        ### Your code goes here!
-        ###
-        # flag = True if all 'x' are within the domain
-        # flag = False if any of 'x' is outside the domain
+        domain = self._domain
+        low = domain[1]
+        up = domain[2]
+        flag = True
+        for i in range(len(low)):
+            if x[i] < low[i] or up[i] < x[i]:
+                flag = False
+                break
         return flag
 
     def describe(self):

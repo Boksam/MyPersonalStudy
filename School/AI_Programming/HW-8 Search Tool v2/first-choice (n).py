@@ -19,6 +19,19 @@ def firstChoice(p):
     ###
     ### Your code goes here!
     ###
+    current = p.randomInit()
+    valueC = p.evaluate(current)
+    i = 0
+    while i < LIMIT_STUCK:
+        successor = p.randomMutant(current)
+        valueS = p.evaluate(successor)
+        if valueS < valueC:
+            current = successor
+            valueC = valueS
+            i = 0
+        else:
+            i += 1
+    p.storeResult(current, valueC)
 
 def displaySetting(p):
     print()

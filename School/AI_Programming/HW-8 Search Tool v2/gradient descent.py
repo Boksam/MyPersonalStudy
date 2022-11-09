@@ -17,6 +17,17 @@ def gradientDescent(p):
     ###
     ### Your code goes here!
     ###
+    currentP = p.randomInit()
+    valueC = p.evaluate(currentP)
+    while True:
+        nextP = p.takeStep(currentP, valueC)
+        valueN = p.evaluate(nextP)
+        if valueN >= valueC:
+            break
+        else:
+            currentP = nextP
+            valueC = valueN
+    p.storeResult(currentP, valueC)
 
 def displaySetting(p):
     print()
