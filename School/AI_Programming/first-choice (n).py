@@ -19,14 +19,21 @@ def main():
 
 
 def createProblem(): ###
-    ## Read in an expression and its domain from a file.
-    ## Then, return a problem 'p'.
-    ## 'p' is a tuple of 'expression' and 'domain'.
-    ## 'expression' is a string.
-    ## 'domain' is a list of 'varNames', 'low', and 'up'.
-    ## 'varNames' is a list of variable names.
-    ## 'low' is a list of lower bounds of the varaibles.
-    ## 'up' is a list of upper bounds of the varaibles.
+    fileName = input("Enter file name of a function: ")
+    infile = open(fileName, 'r')
+    expression = infile.readline()
+    varNames = []
+    low = []    # min value
+    up = []     # max value
+    line = infile.readline()
+    while line != '':
+        data = line.split(',')
+        varNames.append(data[0])
+        low.append(float(data[1]))
+        up.append(float(data[2]))
+        line = infile.readline()
+    infile.close()
+    domain = [varNames, low, up]
     return expression, domain
 
 
@@ -48,7 +55,11 @@ def firstChoice(p):
 
 def randomInit(p): ###
     domain = p[1]
-    
+    low, up = domain[1], domain[2]
+    init = []
+    for i in range(len(low)):
+        r = random.uniform(low[i], up[i])
+        init.append(r)
     return init    # Return a random initial point
                    # as a list of values
 

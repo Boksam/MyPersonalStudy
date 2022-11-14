@@ -42,11 +42,11 @@ def calcDistanceTable(numCities, locations): ###
             d = round(math.sqrt(dx**2 + dy**2), 1)
             row.append(d)
         table.append(row)
-    return table # A symmetric matrix of pairwise distances
+    return table
 
 
 def steepestAscent(p):
-    current = randomInit(p)   # 'current' is a list of city ids
+    current = randomInit(p)
     valueC = evaluate(current, p)
     while True:
         neighbors = mutants(current, p)
@@ -58,7 +58,7 @@ def steepestAscent(p):
             valueC = valueS
     return current, valueC
 
-def randomInit(p):   # Return a random initial tour
+def randomInit(p):
     n = p[0]
     init = list(range(n))
     random.shuffle(init)
@@ -66,9 +66,6 @@ def randomInit(p):   # Return a random initial tour
 
 
 def evaluate(current, p): ###
-    ## Calculate the tour cost of 'current'
-    ## 'p' is a Problem instance
-    ## 'current' is a list of city ids
     global NumEval
 
     NumEval += 1
@@ -106,9 +103,9 @@ def inversion(current, i, j):  ## Perform inversion
 
 def bestOf(neighbors, p): ###
     best = neighbors[0]
-    bestValue = evaluate(best)
+    bestValue = evaluate(best, p)
     for i in range(1, len(neighbors)):
-        newValue = evaluate(neighbors[i])
+        newValue = evaluate(neighbors[i], p)
         if newValue < bestValue:
             best = neighbors[i]
             bestValue = newValue

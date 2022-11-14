@@ -34,6 +34,15 @@ def createProblem():
 
 
 def calcDistanceTable(numCities, locations): ###
+    table = []
+    for i in range(numCities):
+        row = []
+        for j in range(numCities):
+            dx = locations[i][0] - locations[j][0]
+            dy = locations[i][1] - locations[j][1]
+            d = round(math.sqrt(dx**2 + dy**2), 1)
+            row.append(d)
+        table.append(row)
     return table # A symmetric matrix of pairwise distances
 
 
@@ -60,18 +69,21 @@ def randomInit(p):   # Return a random initial tour
 
 
 def evaluate(current, p): ###
-    ## Calculate the tour cost of 'current'
-    ## 'p' is a Problem instance
-    ## 'current' is a list of city ids
-    locTo = current[]
-    
+    global NumEval
+    NumEval += 1
+    n = p[0]
+    table = p[2]
+    cost = 0
+    for i in range(n - 1):
+        locTo = current[i + 1]
+        locFrom = current[i]
+        cost += table[locFrom][locTo]
     return cost
 
 
 def randomMutant(current, p): # Apply inversion
     while True:
-        i, j = sorted([random.randrange(p[0])
-                       for _ in range(2)])
+        i, j = sorted([random.randrange(p[0]) for _ in range(2)])
         if i < j:
             curCopy = inversion(current, i, j)
             break
