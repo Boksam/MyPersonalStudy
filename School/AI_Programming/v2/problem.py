@@ -53,7 +53,7 @@ class Numeric(Problem):
         ### Your code goes here!
         ### note: code here should be almost the same as 
         ###       createProblem() you coded before
-        ###ㅗ
+        ###
         fileName = input("Enter the file")
         infile = open(fileName, 'r')
         self._expression = infile.readline()
