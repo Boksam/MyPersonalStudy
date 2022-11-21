@@ -54,7 +54,7 @@ class Numeric(Problem):
         ### note: code here should be almost the same as 
         ###       createProblem() you coded before
         ###
-        fileName = input("Enter the file")
+        fileName = input("Enter the file name of numeric :")
         infile = open(fileName, 'r')
         self._expression = infile.readline()
         varNames = []
@@ -69,7 +69,6 @@ class Numeric(Problem):
             line = infile.readline()
         infile.close()
         self._domain = [varNames, low, up]
-
 
     def getDelta(self):
         return self._delta
@@ -96,21 +95,31 @@ class Numeric(Problem):
         ###
         ### Your code goes here!
         ###
-        self._
+        self._numEval += 1
+        varNames = self._domain[0]
+        for i in range(len(varNames)):
+            assignment = varNames[i] + '=' + str(current[i])
+            exec(assignment)
+        return eval(self._expression)
 
     def mutants(self, current):
         ###
         ### Your code goes here!
         ###
         neighbors = []
-
+        for i in range(len(current)):
+            mutant = self.mutate(current, i, self._delta)
+            neighbors.append(mutant)
+            mutant = self.mutate(current, i, -self._delta)
+            neighbors.append(mutant)
+        return neighbors
 
     def mutate(self, current, i, d): ## Mutate i-th of 'current' if legal
         ###
         ### Your code goes here!
         ###
-        mutant = 
-        domain =
+        mutant = current[:]
+        domain = self._domain
         l = domain[1][i]
         u = domain[2][i]
         if l <= (mutant[i] + d) <= u:
@@ -194,7 +203,7 @@ class Tsp(Problem):
         ### note: code here should be almost the same as 
         ###       createProblem() before
         ###
-        fileName = input("Enter file name")
+        fileName = input("Enter file name of Tsp :")
         infile = open(fileName, 'r')
         self._numCities = int(infile.readline())
         cityLocs = []
@@ -260,18 +269,31 @@ class Tsp(Problem):
                 mutant = self.inversion(current, i, j)
                 count += 1
                 neighbors.append(mutant)
+        return neighbors
             
 
     def inversion(self, current, i, j):  ## Perform inversion
         ###
         ### Your code goes here!
         ###
-        mutant = 
+        mutant = current[:]
+        while i < j:
+            mutant[i], mutant[j] = mutant[j], mutant[i]
+            i += 1
+            j -= 1
+        return mutant
 
     def randomMutant(self, current): # Inversion only
         ###
         ### Your code goes here!
         ###
+        while True:
+            i, j = sorted([random.randrange(self._numCities) for _ in range(2)])
+            if i < j:
+                curCopy = self.inversion(current, i, j)
+                break
+        return curCopy
+
 
     def describe(self):
         print()

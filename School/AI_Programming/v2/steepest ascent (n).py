@@ -12,16 +12,17 @@ def main():
     displaySetting(p)
     # Report results
     p.report()
-    
+
+
 def steepestAscent(p):
     ###
     ### Your code goes here!
     ###
-    current = p.randomInt()
+    current = p.randomInit()
     valueC = p.evaluate(current)
     while True:
         neighbors = p.mutants(current)
-        (successor, valueS) = bestOf(neighbors)
+        (successor, valueS) = bestOf(neighbors, p)
         if valueS >= valueC:
             break
         else:
@@ -30,13 +31,19 @@ def steepestAscent(p):
     p.storeResult(current, valueC)
 
 
-
 def bestOf(neighbors, p):
     ###
     ### Your code goes here!
     ###
     best = neighbors[0]
     bestValue = p.evaluate(best)
+    for i in range(1, len(neighbors)):
+        newValue = p.evaluate(neighbors[i])
+        if newValue < bestValue:
+            best = neighbors[i]
+            bestValue = newValue
+    return best, bestValue
+
 
 def displaySetting(p):
     print()

@@ -50,7 +50,7 @@ public class ClockPane extends Pane {
         return second;
     }
 
-    public void setSecond(int seocond) {
+    public void setSecond(int second) {
         this.second = second;
         paintClock();
     }
@@ -114,25 +114,27 @@ public class ClockPane extends Pane {
         getChildren().clear();
         getChildren().addAll(circle, sLine, mLine, hLine);
 
-        for (int i = 1; i <= 12; i++){
-            getChildren().add(new Text(centerX + sLength* Math.sin((2 * Math.PI / 12) * i), centerY - sLength * Math.cos((2 * Math.PI / 12) * i), Integer.toString(i)));
+
+        for (int i = 1; i <= 12; i++){  // add clock time using sLength(second length) and center Coordinate with cos, sin
+            getChildren().add(new Text(centerX + sLength * Math.sin((2 * Math.PI / 12) * i), centerY - sLength * Math.cos((2 * Math.PI / 12) * i), Integer.toString(i)));
         }
 
-        for (int i = 1; i <= 60; i++){
-            double scaleX = centerX + clockRadius * Math.sin(2 * Math.PI / 60 * i);
-            double scaleY = centerY - clockRadius * Math.cos(2 * Math.PI / 60 * i);
+        for (int i = 1; i <= 60; i++){  // add clock scale
+            double scaleX = centerX + clockRadius * Math.sin(2 * Math.PI / 60 * i); // scale X starting point
+            double scaleY = centerY - clockRadius * Math.cos(2 * Math.PI / 60 * i); // scale Y starting point
 
-            double scaleLength = clockRadius * 0.95;
+            double scaleLength = clockRadius * 0.95;    // small scale's length is 0.05 * clock Radius
             if (i % 5 == 0){
-                scaleLength = clockRadius * 0.9;
+                scaleLength = clockRadius * 0.9;    // big scale's length is 0.1 * clock Radius
             }
 
-            double scaleX2 = centerX + scaleLength * Math.sin(2 * Math.PI / 60 * i);
-            double scaleY2 = centerY - scaleLength * Math.cos(2 * Math.PI / 60 * i);
+            double scaleX2 = centerX + scaleLength * Math.sin(2 * Math.PI / 60 * i);    // scale X ending point
+            double scaleY2 = centerY - scaleLength * Math.cos(2 * Math.PI / 60 * i);    // scale Y ending point
 
-            getChildren().add(new Line(scaleX, scaleY, scaleX2, scaleY2));
+            getChildren().add(new Line(scaleX, scaleY, scaleX2, scaleY2));  // add scale Line
         }
 
+        // add total time under my clock : first make time string, and add using center coordinate and clockRadius
         String currentTime = Integer.toString(this.hour) + ":" + Integer.toString(this.minute) + ":" + Integer.toString(this.second);
         getChildren().add(new Text(centerX -25, centerY + (clockRadius + 30), currentTime));
     }
