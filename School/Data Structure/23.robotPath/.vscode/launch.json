@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "/Users/junwoo/Documents/codingStudy/School/Data Structure/23.robotPath",
+      "program": "/Users/junwoo/Documents/codingStudy/School/Data Structure/23.robotPath/build/Debug/outDebug"
+    }
+  ]
+}

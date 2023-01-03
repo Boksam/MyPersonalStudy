@@ -30,20 +30,28 @@ class SteepestAscent(HillClimbing):
         HillClimbing.displaySetting(self)
 
     def run(self, p):
-        ###
-        # 기존의 steepestAscent 함수 활용
         current = p.randomInit()
         valueC = p.evaluate(current)
         while True:
             neighbors = p.mutants(current)
-            successor, valueS = self.bestOf(neighbors, p)
+            (successor, valueS) = self.bestOf(neighbors, p)
+            if valueS >= valueC:
+                break
+            else:
+                current = successor
+                valueC = valueS
+        p.storeResult(current, valueC)
 
     def bestOf(self, neighbors, p):
-        ###
-        # Your code goes here!
-        # 기존의 bestOf 함수 활용
+        best = neighbors[0]
+        bestValue = p.evaluate(best)
+        for i in range(1, len(neighbors)):
+            newValue = p.evaluate(neighbors[i])
+            if newValue < bestValue:
+                best = neighbors[i]
+                bestValue = newValue
+        return best, bestValue
         
-
 
 class FirstChoice(HillClimbing):
     def displaySetting(self):
@@ -58,7 +66,17 @@ class FirstChoice(HillClimbing):
         # Your code goes here!
         # 기존의 firstChoice 함수 활용
         current = p.randomInit()
-
+        valueC = p.evaluate(current)
+        i = 0
+        while i < self._limitStuck:
+            successor = p.randomMutant(current)
+            valueS = p.evaluate(successor)
+            if valueS < valueC:
+                current = successor
+                valueC = valueS
+                i = 0
+            else:
+                i += 1
         p.storeResult(current, valueC)
 
 
@@ -71,11 +89,15 @@ class GradientDescent(HillClimbing):
         print("Increment for calculating derivatives:", self._dx)
 
     def run(self, p):
-        ###
-        # Your code goes here!
-        # 기존의 gradientDescent 함수 활용
-        ...?
-        currentP = p.evaluate(currentP)
+        currentP = p.randomInit()
         valueC = p.evaluate(currentP)
         while True:
-            
+            nextP = p.takeStep(currentP, valueC)
+            valueN = p.evaluate(nextP)
+            if valueN >= valueC:
+                break
+            else:
+                currentP = nextP
+                valueC = valueN
+        p.storeResult(currentP, valueC)
+        

@@ -44,7 +44,7 @@ def selectAlgorithm(pType):
     # 2. 알고리즘에 해당하는 클래스 생성
     # 3. 생성한 알고리즘 클래스에 setVariables 호출하여 pType 저장
     while True:
-        aType = int(input("Eter number:"))
+        aType = int(input("Enter number:"))
         if not invalid(pType, aType):
             break
     optimizers = { 1: 'SteepestAscent()',

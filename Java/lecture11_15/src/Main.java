@@ -1,26 +1,23 @@
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Main {
-    public static void main(String[] args) {
-        ExecutorService executor = Executors.newFixedThreadPool(3);
-        executor.execute(new PrintChar('a'));
-        executor.execute(new PrintChar('b'));
-        executor.execute(new PrintChar('c'));
+    public static void main(String[] args){
 
-        executor.shutdown();
     }
 
-    public static class PrintChar implements Runnable {
-        char c;
-        public PrintChar(char c){
-            this.c = c;
-        }
+    private static class Account {
+        private static Lock lock = new ReentrantLock();
+        private static Condition newDeposit = lock.newCondition();
+        private int balance = 0;
 
-        @Override
-        public void run() {
-            for (int i = 0; i < 100; i++)
-                System.out.print(c + " ");
+        public int getBalance() {
+            return balance;
+        }
+        public void withdraw(int amount){
+
         }
     }
 }
